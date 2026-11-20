@@ -5,8 +5,10 @@ import PinnedStory from '../components/home/PinnedStory';
 import FeaturedPhotography from '../components/home/FeaturedPhotography';
 import HorizontalGallery from '../components/home/HorizontalGallery';
 import FilmShowcase from '../components/home/FilmShowcase';
+import FeaturedFilmOfMonth from '../components/home/FeaturedFilmOfMonth';
 import ArtOfStorytelling from '../components/home/ArtOfStorytelling';
 import SignatureCollections from '../components/home/SignatureCollections';
+import FineArtCollection from '../components/home/FineArtCollection';
 import BehindTheLens from '../components/home/BehindTheLens';
 import SignatureDestinations from '../components/home/SignatureDestinations';
 import ServicesOverview from '../components/home/ServicesOverview';
@@ -50,11 +52,17 @@ export default function HomePage({ setActivePage, onOpenFilm, onOpenLightbox, sh
         onOpenFilm={onOpenFilm}
       />
 
+      {/* 6B. FEATURED FILM OF THE MONTH */}
+      <FeaturedFilmOfMonth onOpenFilm={onOpenFilm} />
+
       {/* 7. THE ART OF STORYTELLING */}
       <ArtOfStorytelling />
 
       {/* 8. SIGNATURE COLLECTIONS */}
       <SignatureCollections setActivePage={setActivePage} />
+
+      {/* 8B. FINE ART COLLECTION (MUSEUM-GRADE ARCHIVE) */}
+      <FineArtCollection onOpenLightbox={onOpenLightbox} />
 
       {/* 9. BEHIND THE LENS */}
       <BehindTheLens />

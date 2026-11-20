@@ -33,14 +33,14 @@ export default function Navbar({ activePage, setActivePage }) {
 
   return (
     <header
-      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-300 ${
+      className={`fixed top-0 left-0 right-0 z-50 transition-all duration-500 ease-out ${
         isScrolled
           ? 'bg-[#F8F6F2]/95 backdrop-blur-md py-4 border-b border-[#252525]/10 shadow-sm'
           : 'bg-transparent py-6'
       }`}
     >
       <div className="max-w-7xl mx-auto px-6 md:px-12 flex items-center justify-between">
-        {/* Studio Branding */}
+        {/* Studio Branding & Aperture Glyph */}
         <button
           onClick={() => handleNavClick('home')}
           className="flex items-center space-x-3.5 text-left group transition-transform duration-300 hover:scale-[1.01]"
@@ -72,15 +72,18 @@ export default function Navbar({ activePage, setActivePage }) {
               <button
                 key={link.id}
                 onClick={() => handleNavClick(link.id)}
-                className={`text-xs uppercase tracking-[0.18em] font-sans transition-all duration-200 relative py-1.5 ${
+                className={`text-xs uppercase tracking-[0.18em] font-sans transition-all duration-300 relative py-1.5 group ${
                   isActive
                     ? 'text-[#252525] font-semibold'
                     : 'text-[#252525]/70 hover:text-[#252525]'
                 }`}
               >
-                {link.label}
-                {isActive && (
-                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-4 h-[2px] bg-[#B59B78] rounded-full" />
+                <span>{link.label}</span>
+                {/* Active Gold Line Indicator */}
+                {isActive ? (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-5 h-[2px] bg-[#B59B78] rounded-full" />
+                ) : (
+                  <span className="absolute bottom-0 left-1/2 -translate-x-1/2 w-0 h-[1.5px] bg-[#B59B78]/60 rounded-full transition-all duration-300 group-hover:w-4" />
                 )}
               </button>
             );

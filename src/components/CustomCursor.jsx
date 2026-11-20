@@ -3,12 +3,15 @@ import React, { useEffect, useState } from 'react';
 export default function CustomCursor() {
   const [position, setPosition] = useState({ x: -100, y: -100 });
   const [trailingPos, setTrailingPos] = useState({ x: -100, y: -100 });
-  const [cursorType, setCursorType] = useState('default'); // 'default', 'hover', 'view', 'play', 'drag'
+  const [cursorType, setCursorType] = useState('default'); // 'default', 'hover', 'view', 'play', 'explore', 'prev', 'next'
   const [isVisible, setIsVisible] = useState(false);
 
   useEffect(() => {
-    // Only enable on desktop devices with fine pointer
-    if (window.matchMedia('(pointer: coarse)').matches) {
+    // Only enable on desktop devices with fine pointer and no reduced motion
+    if (
+      window.matchMedia('(pointer: coarse)').matches ||
+      window.matchMedia('(prefers-reduced-motion: reduce)').matches
+    ) {
       return;
     }
 
@@ -41,7 +44,7 @@ export default function CustomCursor() {
     };
   }, [isVisible]);
 
-  // Smooth trailing effect
+  // Smooth physics-based trailing interpolation
   useEffect(() => {
     let animationFrameId;
     const smoothFollow = () => {
@@ -63,16 +66,21 @@ export default function CustomCursor() {
 
   const isView = cursorType === 'view';
   const isPlay = cursorType === 'play';
+  const isExplore = cursorType === 'explore';
+  const isPrev = cursorType === 'prev';
+  const isNext = cursorType === 'next';
   const isHover = cursorType === 'hover';
 
-  let cursorClasses = "w-3 h-3 bg-[#B59B78] border-none";
-  let ringClasses = "w-9 h-9 border border-[#B59B78]/40";
+  let cursorClasses = "w-2.5 h-2.5 bg-[#B59B78] border-none";
+  let ringClasses = "w-8 h-8 border border-[#B59B78]/40";
 
   if (isHover) {
     ringClasses = "w-14 h-14 border border-[#B59B78] bg-[#B59B78]/10 scale-110";
-  } else if (isView || isPlay) {
+  } else if (isView || isPlay || isExplore || isPrev || isNext) {
     ringClasses = "w-20 h-20 bg-[#252525]/90 text-[#F8F6F2] backdrop-blur-sm border border-[#B59B78] shadow-2xl flex items-center justify-center";
   }
+
+  const isTextBadge = isView || isPlay || isExplore || isPrev || isNext;
 
   return (
     <>
@@ -99,10 +107,25 @@ export default function CustomCursor() {
             </span>
           </div>
         )}
+        {isExplore && (
+          <span className="text-[9px] uppercase font-sans tracking-[0.18em] font-medium text-[#B59B78]">
+            Explore
+          </span>
+        )}
+        {isPrev && (
+          <span className="text-sm font-sans font-bold text-[#B59B78]">
+            ←
+          </span>
+        )}
+        {isNext && (
+          <span className="text-sm font-sans font-bold text-[#B59B78]">
+            →
+          </span>
+        )}
       </div>
 
-      {/* Center Precise Dot */}
-      {!isView && !isPlay && (
+      {/* Center Precise Dot (hidden when showing badges) */}
+      {!isTextBadge && (
         <div
           className={`custom-cursor pointer-events-none fixed z-[10000] rounded-full transition-opacity duration-150 ${cursorClasses}`}
           style={{

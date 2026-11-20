@@ -7,71 +7,87 @@ import { STUDIO_INFO, HERO_MEDIA } from '../../data/studioData';
 export default function CinematicHero({ setActivePage, onOpenShowreel }) {
   const containerRef = useRef(null);
   const bgImageRef = useRef(null);
-  const headlineLine1Ref = useRef(null);
-  const headlineLine2Ref = useRef(null);
+  const contentWrapRef = useRef(null);
   const badgeRef = useRef(null);
+  const wordsLine1Ref = useRef([]);
+  const wordsLine2Ref = useRef([]);
   const subtextRef = useRef(null);
   const ctaGroupRef = useRef(null);
   const scrollIndicatorRef = useRef(null);
 
+  const line1Words = ["Every", "Frame"];
+  const line2Words = ["Tells", "a", "Story."];
+
   useGSAP(() => {
-    // Check reduced motion
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
 
     const tl = gsap.timeline({ defaults: { ease: 'power3.out' } });
 
-    // Initial scale-down entrance for hero background
+    // 1. Initial slow scale-down entrance for hero visual
     tl.fromTo(
       bgImageRef.current,
-      { scale: 1.12, opacity: 0.8 },
-      { scale: 1, opacity: 1, duration: 1.8, ease: 'power2.out' },
+      { scale: 1.16, opacity: 0.7 },
+      { scale: 1, opacity: 1, duration: 2.2, ease: 'power2.out' },
       0
     );
 
-    // Staggered pill badge reveal
+    // 2. Pill badge reveal
     tl.fromTo(
       badgeRef.current,
-      { y: 20, opacity: 0 },
+      { y: 25, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.8 },
       0.3
     );
 
-    // Line 1 & Line 2 clipped mask reveal
+    // 3. Word-by-word masked slide-up reveal
+    const allWords = [...wordsLine1Ref.current, ...wordsLine2Ref.current];
     tl.fromTo(
-      [headlineLine1Ref.current, headlineLine2Ref.current],
-      { y: 60, opacity: 0 },
-      { y: 0, opacity: 1, duration: 1, stagger: 0.2 },
+      allWords,
+      { yPercent: 120, opacity: 0 },
+      { yPercent: 0, opacity: 1, duration: 0.9, stagger: 0.08, ease: 'power4.out' },
       0.5
     );
 
-    // Supporting copy fade upward
+    // 4. Supporting copy fade upward
     tl.fromTo(
       subtextRef.current,
       { y: 30, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.8 },
-      0.9
+      1.0
     );
 
-    // Booking & showreel buttons sequential reveal
+    // 5. Booking & showreel buttons sequential reveal
     tl.fromTo(
       ctaGroupRef.current?.children || [],
       { y: 25, opacity: 0 },
       { y: 0, opacity: 1, duration: 0.7, stagger: 0.15 },
-      1.1
+      1.2
     );
 
-    // Scroll indicator reveal
+    // 6. Scroll indicator reveal
     tl.fromTo(
       scrollIndicatorRef.current,
       { opacity: 0, y: 15 },
       { opacity: 1, y: 0, duration: 0.8 },
-      1.4
+      1.5
     );
 
-    // ScrollTrigger scrub to zoom background image from 1 to 1.12 as user scrolls down
+    // ScrollTrigger scrub: zoom background image & apply subtle parallax to content
     gsap.to(bgImageRef.current, {
-      scale: 1.12,
+      scale: 1.14,
+      ease: 'none',
+      scrollTrigger: {
+        trigger: containerRef.current,
+        start: 'top top',
+        end: 'bottom top',
+        scrub: 1,
+      },
+    });
+
+    gsap.to(contentWrapRef.current, {
+      y: 60,
+      opacity: 0.65,
       ease: 'none',
       scrollTrigger: {
         trigger: containerRef.current,
@@ -100,8 +116,11 @@ export default function CinematicHero({ setActivePage, onOpenShowreel }) {
         <div className="absolute inset-0 cinematic-vignette opacity-80" />
       </div>
 
-      {/* Hero Content */}
-      <div className="relative z-10 max-w-7xl mx-auto w-full text-center md:text-left flex flex-col items-center md:items-start justify-center text-white space-y-6 pt-12">
+      {/* Hero Content Stage with Parallax Scrub */}
+      <div
+        ref={contentWrapRef}
+        className="relative z-10 max-w-7xl mx-auto w-full text-center md:text-left flex flex-col items-center md:items-start justify-center text-white space-y-6 pt-12 will-change-transform"
+      >
         {/* Studio Subheading Pill */}
         <div
           ref={badgeRef}
@@ -113,13 +132,32 @@ export default function CinematicHero({ setActivePage, onOpenShowreel }) {
           </span>
         </div>
 
-        {/* Primary Editorial Headline with Clipped Text Effect */}
-        <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-tight text-white leading-[1.08] max-w-4xl overflow-hidden">
-          <span ref={headlineLine1Ref} className="block will-change-transform">
-            Every Frame
+        {/* Primary Editorial Headline: Word-by-Word Clipped Mask Reveal */}
+        <h1 className="font-serif text-4xl sm:text-6xl md:text-7xl lg:text-8xl font-normal tracking-tight text-white leading-[1.08] max-w-4xl">
+          {/* Line 1 */}
+          <span className="block overflow-hidden py-1">
+            {line1Words.map((word, wIdx) => (
+              <span
+                key={wIdx}
+                ref={(el) => (wordsLine1Ref.current[wIdx] = el)}
+                className="inline-block mr-3 sm:mr-5 will-change-transform"
+              >
+                {word}
+              </span>
+            ))}
           </span>
-          <span ref={headlineLine2Ref} className="block italic font-light text-[#F8F6F2]/95 will-change-transform">
-            Tells a Story.
+
+          {/* Line 2 (Italic Emotive Emphasis) */}
+          <span className="block overflow-hidden py-1 italic font-light text-[#F8F6F2]/95">
+            {line2Words.map((word, wIdx) => (
+              <span
+                key={wIdx}
+                ref={(el) => (wordsLine2Ref.current[wIdx] = el)}
+                className="inline-block mr-3 sm:mr-5 will-change-transform"
+              >
+                {word}
+              </span>
+            ))}
           </span>
         </h1>
 
@@ -161,13 +199,13 @@ export default function CinematicHero({ setActivePage, onOpenShowreel }) {
           </button>
         </div>
 
-        {/* Animated Scroll Indicator */}
+        {/* Animated Scroll Indicator with Delicate Pulse */}
         <div
           ref={scrollIndicatorRef}
           className="pt-12 hidden md:flex items-center space-x-3 text-white/60 text-xs font-sans uppercase tracking-[0.2em]"
         >
           <div className="w-6 h-10 border-2 border-white/30 rounded-full flex items-start justify-center p-1.5">
-            <div className="w-1.5 h-2 bg-[#B59B78] rounded-full animate-bounce" />
+            <div className="w-1.5 h-2.5 bg-[#B59B78] rounded-full animate-bounce" />
           </div>
           <span>Scroll to Explore</span>
         </div>

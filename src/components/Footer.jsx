@@ -19,7 +19,7 @@ export default function Footer({ setActivePage }) {
       {/* Decorative Gold Accent Bar */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#B59B78] to-transparent opacity-60" />
 
-      <div className="max-w-7xl mx-auto px-6 md:px-12">
+      <div className="max-w-4xl mx-auto px-6 md:px-12">
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-white/10">
           {/* Column 1: Studio Identity (5 cols) */}
@@ -166,6 +166,11 @@ export default function Footer({ setActivePage }) {
 
         {/* Bottom Bar: Copyright & Back to Top */}
         <div className="pt-8 flex flex-col md:flex-row items-center justify-between text-xs text-[#F8F6F2]/50 font-sans space-y-4 md:space-y-0">
+          <div className="flex items-center space-x-6">
+            <span >Design & Develop By</span>
+            <span className="hidden sm:inline text-[#B59B78]">•</span>
+            <span className="hidden sm:inline"> <a href="https://ashishshinde.netlify.app/" target="_blank" rel="noreferrer">Ashish Shinde</a></span>
+          </div>
           <div className="flex items-center space-x-6">
             <span>© {currentYear} {STUDIO_INFO.name}. All rights reserved.</span>
             <span className="hidden sm:inline text-[#B59B78]">•</span>

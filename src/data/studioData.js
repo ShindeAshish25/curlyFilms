@@ -1,4 +1,4 @@
-// studioData.js — Master Data for Atelier Noir & Light / Lumina Studio
+// studioData.js — Master Data for Atelier Noir & Light / Lumina Studio (V2.0 Ultra-Luxury Edition)
 
 export const STUDIO_INFO = {
   name: "Lumina Studio",
@@ -302,6 +302,72 @@ export const FILMS = [
     camera: "RED Komodo 6K",
     lenses: "Atlas Orion Anamorphic",
     description: "Sculptural garments dancing with wind and shifting sands under a violet twilight sky."
+  }
+];
+
+// V2.0 NEW: Featured Film of the Month (Section G)
+export const FEATURED_FILM_OF_MONTH = {
+  id: "fotm-1",
+  title: "The Royal Rajputana Union",
+  edition: "CURATOR'S MASTERWORK — NOVEMBER 2026",
+  subtitle: "An extended 4K cinematic wedding narrative exploring sacred ritual and modern romance.",
+  client: "Princess Gayatri & Thakur Veerendra",
+  location: "City Palace & Jagmandir Island, Udaipur",
+  year: "2026",
+  duration: "18:40 Extended Cut",
+  resolution: "DCI 4K RAW • 2.39:1 CinemaScope",
+  coverImage: "https://images.unsplash.com/photo-1583939003579-730e3918a45a?auto=format&fit=crop&w=2000&q=85",
+  videoUrl: "https://assets.mixkit.co/videos/preview/mixkit-bride-and-groom-posing-in-a-field-at-sunset-41662-large.mp4",
+  directorStatement: "Our aim was to capture not merely a regal event, but the silent, gravitational intimacy between two human beings whose families have held custody of history for half a millennium.",
+  technicalHighlights: [
+    "Shot exclusively on dual Sony FX6 cinema bodies with vintage Cooke Anamorphic primes",
+    "Analog film print emulation via custom 3D LUT modeled on Kodak 5207 Vision3 stock",
+    "Hand-scored original orchestral motifs recorded with European string ensemble",
+    "32-bit float audio capturing quiet whispered vows amidst fountain courtyard acoustics"
+  ]
+};
+
+// V2.0 NEW: The Fine Art Collection (Section H) — Museum-Inspired Curated Gallery
+export const FINE_ART_COLLECTION = [
+  {
+    id: "fa-1",
+    title: "Veil in Amber Dawn",
+    medium: "Archival Pigment Print on Hahnemühle Photo Rag",
+    camera: "Hasselblad X2D 100C • XCD 80mm f/1.9",
+    dimensions: "36 × 48 in • Edition of 5",
+    year: "2024",
+    image: "https://images.unsplash.com/photo-1610030469983-98e550d6193c?auto=format&fit=crop&w=1200&q=85",
+    aspect: "aspect-[3/4]"
+  },
+  {
+    id: "fa-2",
+    title: "Granite Sentinel at 2,800m",
+    medium: "Platinum Palladium Print on Cotton Rag",
+    camera: "Phase One IQ4 150MP • 110mm LS",
+    dimensions: "40 × 60 in • Edition of 3",
+    year: "2024",
+    image: "https://images.unsplash.com/photo-1464822759023-fed622ff2c3b?auto=format&fit=crop&w=1200&q=80",
+    aspect: "aspect-[16/10]"
+  },
+  {
+    id: "fa-3",
+    title: "The Sandstone Colonnade",
+    medium: "Silver Gelatin Fiber-Based Print",
+    camera: "Leica M11-P • Noctilux 50mm",
+    dimensions: "24 × 36 in • Edition of 8",
+    year: "2023",
+    image: "https://images.unsplash.com/photo-1544717305-2782549b5136?auto=format&fit=crop&w=1200&q=85",
+    aspect: "aspect-[4/5]"
+  },
+  {
+    id: "fa-4",
+    title: "Sculpted Silk in Parisian Gray",
+    medium: "Fine-Art Giclée on Canson Infinity Rag",
+    camera: "Fuji GFX 100 II • GF 110mm f/2",
+    dimensions: "30 × 40 in • Edition of 5",
+    year: "2024",
+    image: "https://images.unsplash.com/photo-1509631179647-0177331693ae?auto=format&fit=crop&w=1200&q=85",
+    aspect: "aspect-[3/4]"
   }
 ];
 
@@ -904,6 +970,7 @@ export const JOURNAL_ARTICLES = [
   }
 ];
 
+// Section 14: Words That Stay With Us — Client Testimonials
 export const TESTIMONIALS = [
   {
     id: "t-1",
