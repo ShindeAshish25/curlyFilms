@@ -19,7 +19,7 @@ export default function Footer({ setActivePage }) {
       {/* Decorative Gold Accent Bar */}
       <div className="absolute top-0 left-0 right-0 h-[2px] bg-gradient-to-r from-transparent via-[#B59B78] to-transparent opacity-60" />
 
-      <div className="max-w-4xl mx-auto px-6 md:px-12">
+      <div className=" mx-auto px-6 md:px-12">
         {/* Main Footer Grid */}
         <div className="grid grid-cols-1 md:grid-cols-12 gap-12 pb-16 border-b border-white/10">
           {/* Column 1: Studio Identity (5 cols) */}
@@ -137,7 +137,6 @@ export default function Footer({ setActivePage }) {
               <div className="flex items-start space-x-2.5">
                 <MapPin className="w-4 h-4 text-[#B59B78] shrink-0 mt-0.5" />
                 <span>
-                  303, Pride Purple Accord,<br />
                   Baner, Pune - 411045,<br />
                   Maharashtra, India.
                 </span>
